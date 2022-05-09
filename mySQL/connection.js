@@ -5,19 +5,22 @@ const connection = mysql.createConnection({
   user: "root",
   password: "",
   host: "localhost",
-  port: 3306,
+  port: "3306",
 });
+// still not detecting env...
+// console.log(process.env);
 
 connection.connect();
 
-function asyncMySQL(query) {
+function pConnection(query) {
   return new Promise((resolve, reject) => {
     connection.query(query, (err, results) => {
       if (err) {
+        console.log("SQL rejected request: " + err);
         reject();
       }
       resolve(results);
     });
   });
 }
-export default asyncMySQL;
+export default pConnection;

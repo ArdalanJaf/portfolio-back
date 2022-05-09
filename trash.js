@@ -1,0 +1,11 @@
+database: process.env.DBDATABASE,
+  user: process.env.DBUSERNAME,
+  password: process.env.DBPASSWORD,
+  host: process.env.DBHOST,
+  port: process.env.DBPORT,
+
+  database: "portfolio-contact",
+  user: "root",
+  password: "",
+  host: "localhost",
+  port: "3306",
