@@ -1,10 +1,9 @@
-// import dotenv from "dotenv";
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import { router } from "./routes.js";
+const dotenv = require("dotenv").config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const router = require("./routes.js");
 
-// dotenv.config();
 const app = express();
 
 app.use(bodyParser.json());
@@ -13,7 +12,7 @@ app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   console.log("server speaking");
-}); //why do I need this here?
+});
 
 app.use("/", router);
 

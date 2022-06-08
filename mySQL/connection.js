@@ -1,14 +1,12 @@
-import mysql from "mysql";
+const mysql = require("mysql");
 
 const connection = mysql.createConnection({
-  database: "portfolio-contact",
-  user: "root",
-  password: "",
-  host: "localhost",
-  port: "3306",
+  database: process.env.DBDATABASE,
+  user: process.env.DBUSERNAME,
+  password: process.env.DBPASSWORD,
+  host: process.env.DBHOST,
+  port: process.env.DBPORT,
 });
-// still not detecting env...
-// console.log(process.env);
 
 connection.connect();
 
@@ -23,4 +21,4 @@ function pConnection(query) {
     });
   });
 }
-export default pConnection;
+module.exports = pConnection;

@@ -1,13 +1,15 @@
-import queries from "./mySQL/queries.js";
-import pConnection from "./mySQL/connection.js";
-import express from "express";
-import { isJoiErrors } from "./joiValidator.js";
-export const router = express.Router();
+const queries = require("./mySQL/queries.js");
+const pConnection = require("./mySQL/connection.js");
+const express = require("express");
+const isJoiErrors = require("./joiValidator.js");
+const router = express.Router();
+module.exports = router;
+const sendEmail = require("./email/nodeMailer");
 
 router.post("/messaging", async (req, res) => {
   try {
     const isJoiErrorsResults = await isJoiErrors(req.body);
-
+    // console.log(isJoiErrorsResults);
     if (isJoiErrorsResults === false) {
       const { email, name, message } = req.body;
 
@@ -15,15 +17,17 @@ router.post("/messaging", async (req, res) => {
       await pConnection(queries.addEmail(email));
       let results = await pConnection(queries.getEmailId(email));
       let email_id = results[0].id;
+      console.log(results[0]);
       await pConnection(queries.addName(name, email_id));
       await pConnection(queries.addMessage(message, email_id));
 
       // 2. Email message to me.
 
+      sendEmail(name, email, message);
+
       // 3. Tell front-end it worked.
       res.send({ status: 1 });
     } else {
-      console.log("err recieved");
       // Send validation-errors to front-end.
       res.send({ status: 1, joiErrors: isJoiErrorsResults });
     }

@@ -1,6 +1,6 @@
-import Joi from "joi";
+const Joi = require("joi");
 
-export const isJoiErrors = async (payload) => {
+const isJoiErrors = async (payload) => {
   const schema = {
     email: Joi.string()
       .required()
@@ -25,4 +25,6 @@ export const isJoiErrors = async (payload) => {
     return joiErrors;
   }
 };
+
+module.exports = isJoiErrors;
 // edit joi messages to be more user-friendly? low priority

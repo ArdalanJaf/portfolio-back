@@ -27,4 +27,4 @@ const queries = {
   },
 };
 
-export default queries;
+module.exports = queries;
